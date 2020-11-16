@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="medical">
+  <!-- 미용사  리스트 -->
+  <select id="medicalList" resultType="medical" parameterType="medical">
+   	SELECT * FROM MEDICAL_DOCTOR
+  </select>
+  
+  <!-- 의사목록(ajax) -->
+  <select id="DoctorInformation" resultType="medical" parameterType="medical">
+   	SELECT * FROM  MEDICAL_DOCTOR WHERE DOCTORCODE = #{doctorCode}
+  </select>
+  
+   <!--의료진 예약 날짜확인 -->
+  <select id="DoctorReserveResult" resultType="medical" parameterType="String">
+   	SELECT MEDICALRESERVETIME FROM MEDICAL_RESERVATION WHERE MEDICALRESERVEDATE = #{medicalReserveDate}
+  </select> 
+  
+  <!--예약하기-->
+  <insert id="DoctorReservation" parameterType="medical">
+  	INSERT INTO 
+  	MEDICAL_RESERVATION
+  	VALUES(MEDICAL_RESERVE_SEQ.nextVal,#{medicalReserveDate},#{medicalReserveTime},#{medicalReserveAnimalKind},#{medicalReserveAnimalAge},#{medicalReserveAnimalNote},#{medicalReserveSubject},#{medicalReserveDoctor},#{medicalReserveUserId},#{medicalReservePrice},#{medicalReservePrice}*0.05,#{medicalReservePayment},0)
+  </insert>
+  
+  <!--쿠폰사용-->
+  <delete id="reservationCoupon" parameterType="map">
+  	DELETE FROM MEMBER_COUPON WHERE COUPONCODE = #{couponCode} AND USERID = #{userId}
+  </delete>
+  <!--포인트사용-->
+  <update id="reservationPoint" parameterType="member">
+  	UPDATE MEMBERS
+	SET USERPOINT = USERPOINT - #{userPoint}
+	WHERE USERID = #{userId}
+  </update>
+    <!--포인트적립-->
+  <update id="memberAddpoint" parameterType="medical">
+  	UPDATE MEMBERS
+	SET USERPOINT = USERPOINT + (#{medicalReservePrice}*0.05)
+	WHERE USERID = #{medicalReserveUserId}
+  </update>
+  
+  <select id="memberSelect" parameterType="medical" resultType="member">
+  	SELECT * FROM MEMBERS WHERE USERID = #{medicalReserveUserId}
+  </select>
+
+  </mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTO config 3.0//EN"
+ "http://mybatis.org/dtb/mybatis-3-config.dtd">
+ 
+<configuration>
+	<settings>
+		<setting value="false" name="cacheEnabled"/>
+		<setting value="NULL" name="jdbcTypeForNull"/>
+	</settings>
+ 	<typeAliases>
+ 		<typeAlias type="com.icia.project.dto.MemberDTO" alias="member"/>
+		<typeAlias type="com.icia.project.dto.HotelDTO" alias="hotel"/>
+		<typeAlias type="com.icia.project.dto.PageDTO" alias="page"/>
+		<typeAlias type="com.icia.project.dto.BeautyDTO" alias="beauty"/>
+		<typeAlias type="com.icia.project.dto.MedicalDTO" alias="medical"/>
+		<typeAlias type="com.icia.project.dto.EducationDTO" alias="education"/>
+		<typeAlias type="com.icia.project.dto.EduCommentDTO" alias="eduComment"/>
+		<typeAlias type="com.icia.project.dto.ReviewDTO" alias="review"/>
+		<typeAlias type="com.icia.project.dto.EventDTO" alias="event"/>
+		<typeAlias type="com.icia.project.dto.EventCommentDTO" alias="eventComment"/>
+		<typeAlias type="com.icia.project.dto.GoodsDTO" alias="goods"/>
+		<typeAlias type="com.icia.project.dto.CouponDTO" alias="coupon"/>
+		<typeAlias type="com.icia.project.dto.EduCommentLikeDTO" alias="eduCommentLike"/>
+		<typeAlias type="com.icia.project.dto.EventCommentLikeDTO" alias="eventCommentLike"/>
+ 	</typeAliases>
+</configuration>

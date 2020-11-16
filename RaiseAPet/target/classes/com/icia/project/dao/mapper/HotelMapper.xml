@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hotel">
+	<!-- 호텔작은방 -->
+	<select id="hotelList1"  resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELSIZE ='소'	
+	</select>
+ 	<!-- 호텔중간방 -->
+	 <select id="hotelList2"  resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELSIZE ='중'	
+	</select> 
+	<!-- 호텔큰방 -->
+	 <select id="hotelList3"  resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELSIZE ='대'	 
+	</select>
+	 <!-- 호텔상세보기  -->
+	<select id="hotelReservation" parameterType="String" resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELCODE=#{hotelCode}
+	</select>
+	<!-- 호텔결제 -->
+	<insert id="hotelcashi" parameterType="hotel">
+		INSERT INTO HOTEL_RESERVATION
+		VALUES (HOTEL_RESERVE_SEQ.NEXTVAL, #{hotelCode},#{hotelUserName},#{hotelUserPhone},#{hotelCheckIn},#{hotelCheckOut},#{hotelAnimalKind},#{hotelSpecialNote},#{hotelPayment},#{hotelUserId},#{hotelReservePrice},#{hotelReservePoint},0)
+	</insert>
+	<!-- 사용쿠폰삭제 -->
+	<delete id="couponDelete" parameterType="hashMap">
+		DELETE FROM MEMBER_COUPON WHERE USERID=#{UserId} AND COUPONCODE=#{couponCode}
+	</delete>
+	<!-- 사용포인트 차감 -->
+	<update id="pointMinus" parameterType="hashMap">
+		UPDATE MEMBERS SET USERPOINT = USERPOINT-#{use_point} WHERE USERID=#{UserId}
+	</update>
+	<!-- 포인트 적립 -->
+	<update id="pointPlus" parameterType="hotel">
+		UPDATE MEMBERS SET USERPOINT = USERPOINT+(#{hotelPrice}*0.05) WHERE USERID=#{hotelUserId}
+	</update>
+	
+	 <select id="memberSelect" parameterType="hotel" resultType="member">
+  	SELECT * FROM MEMBERS WHERE USERID = #{hotelUserId}
+  </select>
+</mapper>

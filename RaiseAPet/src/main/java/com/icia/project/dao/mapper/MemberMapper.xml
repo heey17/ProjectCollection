@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+ "http://mybatis.org/dtb/mybatis-3-mapper.dtd">
+
+<mapper namespace="member">
+	<!-- id 중복 검사 -->
+	<select id="idOverlap" parameterType="String" resultType="String">
+		SELECT USERID FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+	
+	<!-- phone 중복 검사 -->
+	<select id="phoneOverlap" parameterType="String" resultType="String">
+		SELECT USERPHONE FROM MEMBERS WHERE USERPHONE=#{userPhone}
+	</select>
+
+	<!-- email 중복 검사 -->
+	<select id="emailOverlap" parameterType="String" resultType="String">
+		SELECT USEREMAIL FROM MEMBERS WHERE USEREMAIL=#{userEmail}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="memberJoin" parameterType="member">
+		INSERT INTO MEMBERS (USERID, USERPW, USERNAME, USERIMAGE, USERBIRTH, USERADDRESS, USERGENDER, USEREMAIL, USERPHONE)
+		VALUES(#{userId}, #{userPw}, #{userName}, #{userImage}, #{userBirth}, #{userAddress}, #{userGender}, #{userEmail}, #{userPhone})
+	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="userIdFind" parameterType="hashMap" resultType="String">
+		SELECT USERID FROM MEMBERS WHERE USERNAME=#{userNameKey} AND USEREMAIL=#{userEmailKey}
+	</select>
+	
+	<!-- 비밀번호 찾기 -> 이메일 -->
+	<select id="userPwFindEmail" parameterType="hashMap" resultType="String">
+		SELECT USEREMAIL FROM MEMBERS WHERE USERID=#{userIdKey} AND USERNAME=#{userNameKey} AND USEREMAIL=#{userEmailKey}
+	</select>
+	
+	<!-- 비밀번호 찾기 -> 전화번호 -->
+	<select id="userPwFindPhone" parameterType="hashMap" resultType="String">
+		SELECT USERPHONE FROM MEMBERS WHERE USERID=#{userIdKey} AND USERNAME=#{userNameKey} AND USERPHONE=#{userPhoneKey}
+	</select>
+	
+	<!-- 네이버 아이디로 회원가입 -->
+	<insert id="memberJoinNaver" parameterType="member">
+		INSERT INTO MEMBERS(USERID, USERPW, USERNAME, USERADDRESS, USERIMAGE, USERBIRTH, USERGENDER, USEREMAIL, USERPHONE, NAVERID)
+		VALUES(#{userId}, #{userPw}, #{userName}, #{userAddress}, #{userImage}, #{userBirth}, #{userGender}, #{userEmail}, #{userPhone}, #{naverId})
+	</insert>
+	
+	<!-- 카카오 아이디로 회원가입 -->
+	<insert id="memberJoinKakao" parameterType="member">
+		INSERT INTO MEMBERS(USERID, USERPW, USERNAME, USERIMAGE, USERADDRESS, USERBIRTH, USERGENDER, USEREMAIL, USERPHONE, KAKAOID)
+		VALUES(#{userId}, #{userPw}, #{userName}, #{userImage}, #{userAddress}, #{userBirth}, #{userGender}, #{userEmail}, #{userPhone}, #{kakaoId})
+	</insert>
+	
+	<!-- 암호화된 비밀번호 가져오기 -->
+	<select id="memberEncoderPw" parameterType="String" resultType="String">
+		SELECT USERPW FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+	
+	<!-- 일반 로그인 -->
+	<select id="memberLogin" parameterType="member" resultType="member">
+		SELECT * FROM MEMBERS WHERE USERID=#{userId} AND USERPW=#{userPw}
+	</select>
+	
+	<!-- 네이버 로그인 -->
+	<select id="naverLogin" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERS WHERE NAVERID=#{userNaver}
+	</select>
+	
+	<!-- 카카오로 로그인 -->
+	<select id="kakaoLogin" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERS WHERE KAKAOID=#{userKakao}
+	</select>
+	
+	<!-- 비밀번호 확인(수정, 탈퇴) -->
+	<select id="pwCheck" parameterType="String" resultType="String">
+		SELECT USERPW FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="memberDelete">
+		DELETE MEMBERS WHERE USERID=#{userId}
+	</delete>
+	
+	<!-- 회원 수정 -->
+	<update id="memberModify" parameterType="member">
+		UPDATE MEMBERS
+		SET USERID=#{userId}, USERNAME=#{userName}, USERIMAGE=#{userImage}, USERADDRESS=#{userAddress}, USEREMAIL=#{userEmail}, USERPHONE=#{userPhone}, USERGENDER=#{userGender}
+		WHERE USERID=#{userId}
+	</update>
+	
+	<!-- 로그인 확인 -->
+	<select id="loginCheck" parameterType="hashMap" resultType="String">
+		SELECT * FROM MEMBERS WHERE USERID=#{userIdKey} AND USERPW=#{userPwKey}
+	</select>
+	
+	<!-- 수정 후 회원 정보 조회 -->
+	<select id="selectMember" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+	
+	<!-- 쿠폰함 조회 -->
+	<select id="memberCouponList" parameterType="String" resultType="coupon">
+		SELECT * FROM COUPON WHERE COUPON.COUPONCODE = (SELECT COUPONCODE FROM MEMBER_COUPON WHERE COUPON.COUPONCODE = MEMBER_COUPON.COUPONCODE AND USERID=#{userId})
+	</select>
+	
+	<!-- 리뷰내역 조회 -->
+	<select id="memberReviewList" parameterType="String" resultType="review">
+		SELECT * FROM REVIEW WHERE REVIEWUSERID=#{userId}
+	</select>
+	
+	<!-- 문의내역 조회 -->
+	<select id="memberAskList" parameterType="String" resultType="goods">
+		SELECT * FROM GOODS_ASK WHERE GOODS_ASK.ASKGOODSNUM = (SELECT GOODSNUM FROM GOODS WHERE GOODS.GOODSNUM = GOODS_ASK.ASKGOODSNUM AND ASKUSERID=#{userId})
+	</select>
+	
+	<!-- 장바구니 조회 -->
+	<select id="memberBasketList" parameterType="String" resultType="goods">
+		SELECT * FROM GOODS, GOODS_BASKET WHERE GOODS.GOODSNUM = GOODS_BASKET.BASKETGOODSNUM AND BASKETUSERID = #{userId}
+	</select>
+	
+	<!-- 장바구니 내역 삭제 -->
+	<delete id="basketDelete">
+		DELETE GOODS_BASKET WHERE BASKETUSERID=#{userIdKey} AND BASKETGOODSNUM=#{goodsNumKey}
+	</delete>
+	
+	<!-- 장바구니 수량 변경 -->
+	<update id="basketCount1">
+		UPDATE GOODS_BASKET
+		SET BASKETGOODSCOUNT=#{basketCountKey}
+		WHERE BASKETGOODSNUM=(SELECT GOODSNUM FROM GOODS, GOODS_BASKET 
+						WHERE BASKETUSERID=#{userIdKey} 
+						AND GOODSNUM=BASKETGOODSNUM 
+						AND GOODSNUM=#{goodsNumKey}) AND BASKETUSERID=#{userIdKey} 
+	</update>
+	
+	<!-- 쿠폰함 갯수 -->
+	<select id="couponCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER_COUPON WHERE USERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 조회 - 미용 -->
+	<select id="beautyPaymentList" parameterType="String" resultType="beauty">
+		SELECT * FROM BEAUTY_DESIGNER, BEAUTY_RESERVATION WHERE BEAUTYRESERVEUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 조회 - 호텔 -->
+	<select id="hotelPaymentList" parameterType="String" resultType="hotel">
+		SELECT * FROM HOTEL, HOTEL_RESERVATION WHERE HOTELUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 조회 - 병원 -->
+	<select id="medicalPaymentList" parameterType="String" resultType="medical">
+		SELECT * FROM MEDICAL_DOCTOR, MEDICAL_RESERVATION WHERE MEDICALRESERVEUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 조회 - 용품 -->
+	<select id="goodsPaymentList" parameterType="String" resultType="goods">
+		SELECT * FROM GOODS, GOODS_BUY WHERE BUYUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 - 호텔 - count -->
+	<select id="hotelPaymentListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM HOTEL_RESERVATION WHERE HOTELUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 - 미용 - count -->
+	<select id="beautyPaymentListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM BEAUTY_RESERVATION WHERE BEAUTYRESERVEUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 - 병원 - count -->
+	<select id="medicalPaymentListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEDICAL_RESERVATION WHERE MEDICALRESERVEUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 - 용품 - count -->
+	<select id="goodsPaymentListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM GOODS_BUY WHERE BUYUSERID=#{userid}
+	</select>
+	
+	<!-- 리뷰내역 - count -->
+	<select id="reviewListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE REVIEWUSERID=#{userId}
+	</select>
+	
+	<!-- 문의내역 - count -->
+	<select id="askListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM GOODS_ASK WHERE ASKUSERID=#{userId}
+	</select>
+	
+	<!-- 장바구니 - count -->
+	<select id="basketListCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM GOODS_BASKET WHERE BASKETUSERID=#{userId}
+	</select>
+	
+	<!-- 결제내역 - 호텔 페이징 -->
+	<select id="hotelPagingList" parameterType="hashMap" resultType="hotel">
+		SELECT * FROM (SELECT H.*,B.*, ROW_NUMBER() OVER(ORDER BY HOTELCODE DESC) 
+        AS RN FROM HOTEL_RESERVATION H, HOTEL B 
+		WHERE HOTELCODE = HOTELRESERVECODE and HOTELUSERID=#{userIdKey})
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 결제내역 - 미용 페이징 -->
+	<select id="beautyPagingList" parameterType="hashMap" resultType="beauty">
+      	SELECT * 
+      	FROM (SELECT H.*, B.*, ROW_NUMBER() OVER(ORDER BY BEAUTYRESERVEDESIGNER DESC)
+        AS RN FROM BEAUTY_RESERVATION H, BEAUTY_DESIGNER B WHERE DESIGNERCODE = BEAUTYRESERVEDESIGNER AND BEAUTYRESERVEUSERID=#{userIdKey}) 
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 결제내역 - 병원 페이징 -->
+	<select id="medicalPagingList" parameterType="hashMap" resultType="medical">
+		SELECT * FROM (SELECT H.*,B.*, ROW_NUMBER() OVER(ORDER BY MEDICALRESERVEDOCTOR DESC) 
+		AS RN FROM MEDICAL_RESERVATION H, MEDICAL_DOCTOR B WHERE DOCTORCODE = MEDICALRESERVEDOCTOR AND MEDICALRESERVEUSERID=#{userIdKey}) 
+		WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 결제내역 - 용품 페이징 -->
+	<select id="goodsPagingList" parameterType="hashMap" resultType="goods">
+		SELECT * 
+      	FROM (SELECT H.*,B.*, ROW_NUMBER() OVER(ORDER BY BUYGOODSNUM DESC) 
+        AS RN FROM GOODS H, GOODS_BUY B WHERE GOODSNUM = BUYGOODSNUM AND BUYUSERID=#{userIdKey})
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 리뷰내역 - 페이징 -->
+	<select id="reviewPagingList" parameterType="hashMap" resultType="review">
+		SELECT * 
+      	FROM (SELECT H.*, ROW_NUMBER() OVER(ORDER BY REVIEWNUM DESC) 
+        AS RN FROM REVIEW H WHERE REVIEWUSERID=#{userIdKey})
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 문의내역 - 페이징 -->
+	<select id="askPagingList" parameterType="hashMap" resultType="goods">
+		SELECT * 
+      	FROM (SELECT H.*, ROW_NUMBER() OVER(ORDER BY ASKNUM DESC) 
+        AS RN FROM GOODS_ASK H WHERE ASKUSERID=#{userIdKey})
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 장바구니 - 페이징 -->
+	<select id="basketPagingList" parameterType="hashMap" resultType="goods">      	
+      	SELECT * FROM (SELECT H.*, B.*, ROW_NUMBER() OVER(ORDER BY BASKETGOODSNUM DESC) 
+        AS RN FROM GOODS_BASKET B, GOODS H WHERE GOODSNUM = BASKETGOODSNUM AND BASKETUSERID=#{userIdKey})
+      	WHERE RN BETWEEN #{startRowKey} AND #{endRowKey}
+	</select>
+	
+	<!-- 새비밀번호로 수정 -->
+	<update id="newPassword">
+		UPDATE MEMBERS SET USERPW=#{userPwKey} WHERE USERID=#{userIdKey}
+	</update>
+	
+	<!-- 상품 정보 불러오기 -->
+	<select id="goodsInfo" parameterType="HashMap" resultType="Goods">
+		SELECT * FROM GOODS WHERE GOODSNUM =
+		(SELECT BASKETGOODSNUM FROM GOODS, GOODS_BASKET WHERE BASKETUSERID=#{userIdKey} AND GOODSNUM=#{goodsNumKey} AND GOODSNUM=BASKETGOODSNUM)
+	</select>
+	
+	<!-- 장바구니 정보 불러오기 -->
+	<select id="basketInfo" parameterType="HashMap" resultType="Goods">
+		SELECT BASKETGOODSCOUNT FROM GOODS_BASKET WHERE BASKETUSERID=#{userIdKey} AND BASKETGOODSNUM=#{goodsNumKey}
+	</select>
+	
+	<!-- 결제내역 업데이트 -->
+	<insert id="buyInfoUpdate" parameterType="HashMap">
+		INSERT INTO GOODS_BUY VALUES(GOODS_BUY_SEQ.NEXTVAL, #{goodsNumKey}, #{userIdKey}, '온라인', #{addressKey}, '배송 준비 중', #{basketGoodsCountKey}, #{basketPriceKey}, 0)
+	</insert>
+	
+	<!-- 장바구니 내역 삭제하기 -->
+	<delete id="basketInfoDelete">
+		DELETE FROM GOODS_BASKET WHERE BASKETGOODSNUM=#{goodsNumKey} AND BASKETUSERID=#{userIdKey}
+	</delete>
+	
+	<!-- 결제내역에 따른 포인트 업데이트 -->
+	<update id="memberPointUpdate">
+		UPDATE MEMBERS SET USERPOINT = USERPOINT + #{memberPointKey} WHERE USERID=#{userIdKey}
+	</update>
+	
+	<!-- 결제 시 차감된 포인트만큼 포인트 새로 업데이트 -->
+	<update id="pointUpdate">
+		UPDATE MEMBERS SET USERPOINT=#{userPointKey} WHERE USERID=#{userIdKey}
+	</update>
+	
+	<!-- 포인트 차감 후 회원 정보 조회 -->
+	<select id="memberSession" parameterType="HashMap" resultType="member">
+		SELECT * FROM MEMBERS WHERE USERID=#{userIdKey}
+	</select>
+	
+	<!-- 사용한 쿠폰 삭제 -->
+	<delete id="couponCodeDelete">
+		DELETE FROM MEMBER_COUPON WHERE USERID=#{userIdKey} AND COUPONCODE=#{couponCodeKey}
+	</delete>
+	
+	<!-- 쿠폰함 조회(결제내역) -->
+	<select id="userCouponList" parameterType="String" resultType="coupon">
+		SELECT * FROM COUPON M, MEMBER_COUPON C WHERE M.COUPONCODE = C.COUPONCODE AND USERID=#{userIdKey}
+	</select>
+	
+	<!-- 여러 개 선택하여 결제 (장바구니) -->
+	<select id="basketGoodsSelect" parameterType="HashMap" resultType="goods">
+		SELECT * FROM GOODS_BASKET, GOODS WHERE GOODSNUM=BASKETGOODSNUM AND BASKETUSERID=#{userIdKey} AND BASKETGOODSNUM=#{goodsNumKey}
+	</select>
+		
+	<!-- 호텔 리뷰 확인 -->
+	<select id="hotelReviewCheck" parameterType="HashMap" resultType="int">
+		SELECT HOTELREVIEW FROM HOTEL_RESERVATION WHERE HOTELUSERID=#{userIdKey} AND HOTELRESERVENUM=#{hotelReserveNumKey}
+	</select>
+	
+	<!-- 병원 리뷰 확인 -->
+	<select id="medicalReviewCheck" parameterType="HashMap" resultType="int">
+		SELECT MEDICALREVIEW FROM MEDICAL_RESERVATION WHERE MEDICALRESERVEUSERID=#{userIdKey} AND MEDICALRESERVENUM=#{medicalReserveNumKey}
+	</select>
+	
+	<!-- 미용 리뷰 확인 -->
+	<select id="beautyReviewCheck" parameterType="HashMap" resultType="int">
+		SELECT BEAUTYREVIEW FROM BEAUTY_RESERVATION WHERE BEAUTYRESERVEUSERID=#{userIdKey} AND BEAUTYRESERVENUM=#{beautyReserveNumKey}
+	</select>
+	
+	<!-- 용품 리뷰 확인 -->
+	<select id="goodsReviewCheck" parameterType="HashMap" resultType="int">
+		SELECT GOODSREVIEW FROM GOODS_BUY WHERE BUYUSERID=#{userIdKey} AND GOODSBUYNUM=#{goodsBuyNumKey}	
+	</select>
+</mapper>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="AdminManagement">
+<!-- 호텔 -->
+	<!-- 글쓰기 -->
+	<insert id="HotelWrite" parameterType="hotel">
+		INSERT INTO HOTEL 
+		VALUES(#{hotelSize}, #{hotelCode}, #{hotelRoomName}, #{hotelPrice}, #{hotelPrice}*0.05, #{hotelMaxAnimal}, #{hotelContents}, 
+		#{hotelRoomImage1}, #{hotelRoomImage2}, #{hotelRoomImage3}, #{hotelRoomImage4}, #{hotelRoomImage5}, '호텔')
+	</insert>
+	<!-- 글 목록 가져오기 -->
+	<select id="HotelList"  resultType="hotel">
+		SELECT * FROM HOTEL
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="HotelView" parameterType="String" resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELCODE=#{hotelCode}
+	</select>
+	<!-- 글 수정 -->
+	<update id="HotelModify" parameterType="hotel">
+		UPDATE HOTEL SET HOTELSIZE=#{hotelSize}, HOTELROOMNAME=#{hotelRoomName}, HOTELPRICE=#{hotelPrice}, HOTELPOINT=#{hotelPrice}*0.05,
+		HOTELMAXANIMAL=#{hotelMaxAnimal}, HOTELCONTENTS=#{hotelContents}, HOTELROOMIMAGE1=#{hotelRoomImage1}, HOTELROOMIMAGE2=#{hotelRoomImage2},
+		HOTELROOMIMAGE3=#{hotelRoomImage3}, HOTELROOMIMAGE4=#{hotelRoomImage4}, HOTELROOMIMAGE5=#{hotelRoomImage5} 
+		WHERE HOTELCODE=#{hotelCode}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="HotelDelete" parameterType="String">
+		DELETE FROM HOTEL WHERE HOTELCODE=#{hotelCode}
+	</delete>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- 미용 -->
+	<!-- 글쓰기 -->
+	<insert id="BeautyWrite" parameterType="beauty">
+		INSERT INTO BEAUTY_DESIGNER
+		VALUES(#{designerName}, #{designerCode}, #{designerImage}, #{designerOff}, #{designerCareer}, '미용')
+	</insert>
+	<!-- 글 목록 가져오기 -->
+	<select id="BeautyList" resultType="beauty">
+		SELECT * FROM BEAUTY_DESIGNER
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="BeautyView" parameterType="String" resultType="beauty">
+		SELECT * FROM BEAUTY_DESIGNER WHERE DESIGNERCODE=#{designerCode}
+	</select>
+	<!-- 글 수정 -->
+	<update id="BeautyModify" parameterType="beauty">
+		UPDATE BEAUTY_DESIGNER SET DESIGNERNAME=#{designerName}, DESIGNEROFF=#{designerOff}, DESIGNERIMAGE=#{designerImage}, 
+		DESIGNERCAREER=#{designerCareer} WHERE DESIGNERCODE=#{designerCode}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="BeautyDelete" parameterType="String">
+		DELETE FROM BEAUTY_DESIGNER WHERE DESIGNERCODE=#{designerCode}
+	</delete>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->	
+<!-- 병원 -->
+	<!-- 글쓰기 -->
+	<insert id="DoctoryWrite" parameterType="medical">
+		INSERT INTO MEDICAL_DOCTOR
+		VALUES(#{doctorName}, #{doctorCode}, #{doctorImage}, #{doctorOff}, #{doctorCareer}, #{doctorSubject}, '병원')
+	</insert>
+	<!-- 글 목록 가져오기 -->
+	<select id="DoctorList"  resultType="medical">
+		SELECT * FROM MEDICAL_DOCTOR
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="DoctorView" parameterType="String" resultType="medical">
+		SELECT * FROM MEDICAL_DOCTOR WHERE DOCTORCODE=#{doctorCode}
+	</select>
+	<!-- 글 수정 -->
+	<update id="DoctorModify" parameterType="medical">
+		UPDATE MEDICAL_DOCTOR SET DOCTORNAME=#{doctorName}, DOCTORIMAGE=#{doctorImage}, DOCTOROFF=#{doctorOff},
+		DOCTORCAREER=#{doctorCareer}, DOCTORSUBJECT=#{doctorSubject} WHERE DOCTORCODE=#{doctorCode}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="DoctorDelete" parameterType="String">
+		DELETE FROM MEDICAL_DOCTOR WHERE DOCTORCODE=#{doctorCode}
+	</delete>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->	
+<!-- 교육 -->
+	<!-- 글쓰기 -->
+	<insert id="EducationWrite" parameterType="education">
+		INSERT INTO EDUCATION 
+		VALUES(#{eduTitle}, #{eduContents}, #{eduImage}, #{eduVideo}, 0, 0, EDU_SEQ.nextVal, '교육', #{eduAnimalKind})
+	</insert>
+	<!-- 글 목록 가져오기 전 카운트 -->
+	<select id="EducationCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM EDUCATION WHERE EDUANIMALKIND LIKE '%'||#{eduAnimalKind}||'%'
+	</select>
+	<!-- 글 목록 가져오기 -->
+	<select id="EducationList" parameterType="hashMap" resultType="education">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY EDUNUM) AS RN FROM EDUCATION B WHERE EDUANIMALKIND LIKE '%'||#{eduAnimalKind}||'%') WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="EducationView" parameterType="int" resultType="education">
+		SELECT * FROM EDUCATION WHERE EDUNUM=#{eduNum}
+	</select>
+	<!-- 글 수정 -->
+	<update id="EducationModify" parameterType="education">
+		UPDATE EDUCATION SET EDUTITLE=#{eduTitle}, EDUCONTENTS=#{eduContents}, EDUIMAGE=#{eduImage}, EDUVIDEO=#{eduVideo}, EDUANIMALKIND=#{eduAnimalKind} WHERE EDUNUM=#{eduNum}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="EducationDelete" parameterType="int">
+		DELETE FROM EDUCATION WHERE EDUNUM=#{eduNum}
+	</delete>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->	
+<!-- 용품 -->
+	<!-- 글쓰기 -->
+	<insert id="GoodsWrite" parameterType="goods">
+		INSERT INTO GOODS 
+		VALUES(GOODSNUM_SEQ.nextVal,  #{goodsName}, #{goodsPrice}, #{goodsStock}, #{goodsAnimalKind}, 
+		#{goodsCategory}, 0, 0, #{goodsContents}, #{goodsImage1}, #{goodsImage2}, #{goodsImage3}, 
+		#{goodsImage4}, #{goodsImage5}, #{goodsPrice}*0.05, '용품')
+	</insert>
+	<!-- 글 목록 가져오기 전 카운트 -->
+	<select id="GoodsListCount" resultType="int">
+		SELECT COUNT(*) FROM GOODS
+	</select>
+	<!-- 글 목록 가져오기 -->
+	<select id="GoodsList" parameterType="page" resultType="goods">
+		SELECT * FROM GOODS_LIST WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="GoodsView" parameterType="int" resultType="goods">
+		SELECT * FROM GOODS WHERE GOODSNUM=#{goodsNum}
+	</select>
+	<!-- 글 수정 -->
+	<update id="GoodsModify" parameterType="goods">
+		UPDATE GOODS SET GOODSNAME=#{goodsName}, GOODSCONTENTS=#{goodsContents}, GOODSPRICE=#{goodsPrice},
+		GOODSSTOCK =#{goodsStock}, GOODSANIMALKIND=#{goodsAnimalKind}, GOODSCATEGORY=#{goodsCategory}, GOODSIMAGE1=#{goodsImage1}, 
+		GOODSIMAGE2=#{goodsImage2}, GOODSIMAGE3=#{goodsImage3}, GOODSIMAGE4=#{goodsImage4}, 
+		GOODSIMAGE5=#{goodsImage5}, GOODSPOINT=#{goodsPrice}*0.05 WHERE GOODSNUM=#{goodsNum}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="GoodsDelete" parameterType="int">
+		DELETE FROM GOODS WHERE GOODSNUM=#{goodsNum}
+	</delete>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- 이벤트 -->
+	<!-- 글쓰기 -->
+	<insert id="EventWrite" parameterType="event">
+		INSERT INTO EVENT 
+		VALUES(EVENT_SEQ.nextVal, #{eventTitleImage}, #{eventImage}, 0, SYSDATE, #{eventContents},#{eventCouponCode},'이벤트')
+	</insert>
+	<!-- 글 목록 가져오기 -->
+	<select id="EventList" resultType="event">
+		SELECT * FROM EVENT
+	</select>
+	<!-- 글 상세보기 -->
+	<select id="EventView" parameterType="int" resultType="event">
+		SELECT * FROM EVENT WHERE EVENTNUM=#{eventNum}
+	</select>
+	<!-- 글 수정 -->
+	<update id="EventModify" parameterType="event">
+		UPDATE EVENT SET EVENTTITLEIMAGE=#{eventTitleImage}, EVENTIMAGE=#{eventImage}, EVENTCONTENTS=#{eventContents}, EVENTCOUPONCODE=#{eventCouponCode} 
+		WHERE EVENTNUM=#{eventNum}
+	</update>
+	<!-- 글삭제 -->
+	<delete id="EventDelete" parameterType="int">
+		DELETE FROM EVENT WHERE EVENTNUM=#{eventNum}
+	</delete>
+	<!-- 쿠폰 목록 불러오기 -->
+	<select id="EventCouponList" resultType="coupon">
+		SELECT * FROM COUPON WHERE COUPONDATE>SYSDATE
+	</select>
+	<!-- 쿠폰 정보 불러오기 -->
+	<select id="EventCoupon" parameterType="String" resultType="coupon">
+		SELECT * FROM COUPON WHERE COUPONCODE=#{eventCouponCode}
+	</select>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- 리뷰 -->
+	<!-- 리뷰 목록 가져오기 전 리뷰 개수 세기 -->
+	<select id="ReviewCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE REVIEWKIND=#{kind} 
+	</select>
+	<!-- 리뷰 목록 가져오기 -->
+	<!-- 호텔 -->
+	<select id="HotelReview" parameterType="page" resultType="review">
+		SELECT * FROM HOTEL_REVIEW WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 미용 -->
+	<select id="BeautyReview" parameterType="page" resultType="review">
+		SELECT * FROM BEAUTY_REVIEW WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 병원 -->
+	<select id="MedicalReview" parameterType="page" resultType="review">
+		SELECT * FROM MEDICAL_REVIEW WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 용품 -->
+	<select id="GoodsReview" parameterType="page" resultType="review">
+		SELECT * FROM GOODS_REVIEW WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 리뷰 블라인드 처리-->
+	<update id="ReviewBlind" parameterType="int">
+		UPDATE REVIEW SET REVIEWBLIND='BLIND' WHERE REVIEWNUM=#{reviewNum} AND REVIEWBLIND IS NULL
+	</update>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- 회원 -->
+	<!-- 회원 목록 불러오기 전 카운트 -->
+	<select id="MemberCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBERS
+	</select>
+	<!-- 회원 목록 가져오기 -->
+	<select id="MemberList" parameterType="page" resultType="member">
+		SELECT * FROM MEMBERLIST WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 회원 상세보기 -->
+	<select id="MemberView" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+	<!-- 회원 삭제 -->
+	<delete id="MemberDelete" parameterType="String">
+		DELETE MEMBERS WHERE USERID=#{userId}
+	</delete>
+	<!-- 신고 목록 가져오기 전 신고글 카운트 -->
+	<select id="ReportCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW_REPORT
+	</select>
+	<!-- 신고 목록 가져오기 -->
+	<select id="MemberReport" parameterType="page" resultType="review">
+		SELECT * FROM REPORT_LIST, REVIEW WHERE REVIEWNUM=REPORTREVIEWNUM AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 회원 정지 -->
+	<update id="MemberSuspend" parameterType="hashmap">
+		UPDATE MEMBERS SET USERLOCK=SYSDATE+#{suspendDeadLine}, USERLOCKCOUNT=USERLOCKCOUNT+1 WHERE USERID=#{reviewUserId} AND (USERLOCK &lt; SYSDATE OR USERLOCK IS NULL)
+	</update>
+	<!-- 신고글 삭제 -->
+	<delete id="ReportDelete" parameterType="hashmap">
+		DELETE REVIEW_REPORT WHERE REPORTREVIEWNUM=#{reportReviewNum} AND REPORTUSERID=#{reportUserId}
+	</delete>
+	<!-- 정지 회원 목록 가져오기 전 카운트 -->
+	<select id="SuspendMemberCount" resultType="int">
+		SELECT COUNT(*) FROM MEMBERS WHERE USERLOCK>SYSDATE 
+	</select>
+	<!-- 정지 회원 목록 가져오기 -->
+	<select id="MemberSuspendList" parameterType="page" resultType="member">
+		SELECT * FROM SUSPENDLIST WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 문의 내역 가져오기 전 카운트 -->
+	<select id="AskListCount" resultType="int">
+		SELECT COUNT(*) FROM ASK_LIST
+	</select>
+	<!-- 문의 내역 -->
+	<select id="AskList" resultType="goods">
+		SELECT * FROM ASK_LIST WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 문의글 답변 -->
+	<select id="AskAnswer" parameterType="goods">
+		UPDATE GOODS_ASK SET ASKANSWER=#{askAnswer} WHERE ASKNUM=#{askNum}
+	</select>
+	<!-- 쿠폰 작성 -->
+	<insert id="CouponWrite" parameterType="coupon">
+		INSERT INTO COUPON VALUES(#{couponName}, #{couponCode}, TO_DATE(#{couponDate},'YYYY/MM/DD'), #{couponContents}, #{couponSale})
+	</insert>
+	<!-- 쿠폰 발행 -->
+	<insert id="CouponGive" parameterType="hashMap">
+		INSERT INTO MEMBER_COUPON VALUES(#{userId}, #{couponCode})
+	</insert>
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+<!-- 예약 및 구매 -->
+	<!-- 호텔 -->
+	<!-- 호텔 예약 목록 불러오기 전 카운트 -->
+	<select id="HotelReserveCount" resultType="int">
+		SELECT COUNT(*) FROM HOTEL_RESERVATION WHERE HOTELCHECKOUT>SYSDATE
+	</select>
+	<!-- 호텔 예약 목록 조회 -->
+	<select id="HotelReserve" parameterType="page" resultType="hotel">
+		SELECT * FROM HOTEL_RESERVE_LIST WHERE HOTELCHECKOUT>=SYSDATE AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 미용 -->
+	<!-- 미용 예약 목록 불러오기 전 카운트 -->
+	<select id="BeautyReserveCount" resultType="int">
+		SELECT COUNT(*) FROM BEAUTY_RESERVATION WHERE BEAUTYRESERVEDATE>=SYSDATE
+	</select>
+	<select id="BeautyReserve" parameterType="page" resultType="beauty">
+		SELECT * FROM BEAUTY_RESERVE_LIST WHERE BEAUTYRESERVEDATE>=SYSDATE AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 병원 -->
+	<!-- 병원 예약 목록 불러오기 전 카운트 -->
+	<select id="MedicalReserveCount" resultType="int">
+		SELECT COUNT(*) FROM MEDICAL_RESERVATION WHERE MEDICALRESERVEDATE>=SYSDATE
+	</select>
+	<!-- 병원 예약 목록 조회 -->
+	<select id="MedicalReserve" parameterType="page" resultType="medical">
+		SELECT * FROM MEDICAL_RESERVE_LIST WHERE MEDICALRESERVEDATE>=SYSDATE AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 용품 -->
+	<!-- 용품 구매 목록 불러오기 전 카운트 -->
+	<select id="GoodsBuyCount" resultType="int">
+		SELECT COUNT(*) FROM GOODS_BUY WHERE BUYDELEVERY NOT IN ('배송완료')
+	</select>
+	<!-- 용품 구매 목록 조회 -->
+	<select id="GoodsBuy" parameterType="page" resultType="goods">
+		SELECT * FROM GOODS_BUY_LIST WHERE BUYDELEVERY NOT IN ('배송완료') AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+</mapper>

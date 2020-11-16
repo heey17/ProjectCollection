@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Review">
+	<!-- 리뷰 정보 가져오기 전 회원 정지 체크 -->
+	<select id="SuspendCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBERS WHERE USERID=#{userId} AND USERLOCK>SYSDATE
+	</select>
+	<!-- 리뷰 작성 전 정보 가져오기 -->
+	<select id="HotelReview" parameterType="String" resultType="hotel">
+		SELECT * FROM HOTEL WHERE HOTELCODE=#{code}
+	</select>
+	<select id="BeautyWrite" parameterType="String" resultType="beauty">
+		SELECT * FROM BEAUTY_DESIGNER WHERE DESIGNERCODE=#{code}
+	</select>
+	<select id="GoodsReview" parameterType="int" resultType="goods">
+		SELECT * FROM GOODS WHERE GOODSNUM=#{num}
+	</select>
+	<select id="MedicalReview" parameterType="String" resultType="medical">
+		SELECT * FROM MEDICAL_DOCTOR WHERE DOCTORCODE=#{code}
+	</select>
+	<!-- 리뷰 작성 -->
+	<insert id="ReviewWrite" parameterType="review">
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{reviewContents}, #{reviewImage}, #{reviewRating}, SYSDATE,NULL, 0, #{reviewTitle}, #{reviewKind}, #{reviewUserId})
+	</insert>
+	<!-- 리뷰 작성 시 카운트 +1 -->
+	<update id="HotelUp" parameterType="int">
+		UPDATE HOTEL_RESERVATION SET HOTELREVIEW=1 WHERE HOTELRESERVENUM=#{reserveNum}
+	</update>
+	<update id="BeautyUp" parameterType="int">
+		UPDATE BEAUTY_RESERVATION SET BEAUTYREVIEW=1 WHERE BEAUTYRESERVENUM=#{reserveNum}
+	</update>
+	<update id="MedicalUp" parameterType="int">
+		UPDATE MEDICAL_RESERVATION SET MEDICALREVIEW=1 WHERE MEDICALRESERVENUM=#{reserveNum}
+	</update>
+	<update id="GoodsUp" parameterType="int">
+		UPDATE GOODS_BUY SET GOODSREVIEW=1 WHERE GOODSBUYNUM=#{reserveNum}
+	</update>
+	<!-- 리뷰 목록 가져오기 전 카운팅 -->
+	<select id="ReviewCount" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE REVIEWBLIND IS NULL AND REVIEWKIND LIKE '%'||#{reviewKind}||'%' AND (REVIEWTITLE LIKE '%'||#{searchData}||'%' OR REVIEWCONTENTS LIKE '%'||#{searchData}||'%')
+	</select>
+	<!-- 리뷰 최신순 데이터 요청 -->
+	<select id="ReviewSearchList" parameterType="hashMap" resultType="review">
+		SELECT * FROM (SELECT RV.*, ROW_NUMBER() OVER(ORDER BY REVIEWDATE DESC)AS RN FROM REVIEW RV WHERE REVIEWBLIND IS NULL AND REVIEWKIND LIKE '%'||#{reviewKind}||'%' AND (REVIEWTITLE LIKE '%'||#{searchData}||'%' OR REVIEWCONTENTS LIKE '%'||#{searchData}||'%')) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 리뷰 좋아요 순 정렬 데이터 요청 -->
+	<select id="ReviewLikeLineUp" parameterType="hashMap" resultType="review">
+		SELECT * FROM (SELECT RV.*, ROW_NUMBER() OVER(ORDER BY REVIEWLIKE DESC)AS RN FROM REVIEW RV WHERE REVIEWBLIND IS NULL AND REVIEWKIND LIKE '%'||#{reviewKind}||'%' AND (REVIEWTITLE LIKE '%'||#{searchData}||'%' OR REVIEWCONTENTS LIKE '%'||#{searchData}||'%')) WHERE RN BETWEEN #{startRow} AND #{endRow} 
+	</select>
+	<!-- 리뷰 오래된 순 정렬 데이터 요청 -->
+	<select id="ReviewOldLineUp" parameterType="hashMap" resultType="review">
+		SELECT * FROM (SELECT RV.*, ROW_NUMBER() OVER(ORDER BY REVIEWDATE ASC)AS RN FROM REVIEW RV WHERE REVIEWBLIND IS NULL AND REVIEWKIND LIKE '%'||#{reviewKind}||'%' AND (REVIEWTITLE LIKE '%'||#{searchData}||'%' OR REVIEWCONTENTS LIKE '%'||#{searchData}||'%')) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- 리뷰 좋아요 체크 -->
+	<select id="ReviewLikeCheck" parameterType="member" resultType="review">
+		SELECT * FROM REVIEW_LIKE WHERE LIKEUSERID = #{userId}
+	</select>
+	<!-- 리뷰 좋아요+1 -->
+	<update id="ReviewLikeUp" parameterType="int">
+		UPDATE REVIEW SET REVIEWLIKE=REVIEWLIKE+1 WHERE REVIEWNUM=#{reviewNum}
+	</update>
+	<!-- 리뷰 좋아요 아이디 저장 -->
+	<insert id="ReviewLikeInsert" parameterType="map">
+		INSERT INTO REVIEW_LIKE VALUES(#{reviewNum}, #{userId})
+	</insert>
+	<!-- 리뷰 좋아요-1 -->
+	<update id="ReviewLikeDown" parameterType="int">
+		UPDATE REVIEW SET REVIEWLIKE=REVIEWLIKE+1 WHERE REVIEWNUM=#{reviewNum}
+	</update>
+	<!-- 리뷰 좋아요 아이디 삭제 -->
+	<insert id="ReviewLikeDelete" parameterType="map">
+		DELETE REVIEW_LIKE WHERE LIKEREVIEWNUM=#{reviewNum} AND LIKEUSERID = #{userId}
+	</insert>
+	<!-- 리뷰 신고 전 정보 가져오기 -->
+	<select id="ReviewView" parameterType="int" resultType="review">
+		SELECT * FROM REVIEW WHERE REVIEWNUM=#{reviewNum}
+	</select>
+	<!-- 리뷰 신고 -->
+	<insert id="ReviewReport" parameterType="review">
+		INSERT INTO REVIEW_REPORT VALUES(#{reportReviewNum}, #{reportUserId}, #{reportKind}) 
+	</insert>
+	<!-- 리뷰 수정 -->
+	<update id="ReviewModify" parameterType="review">
+		UPDATE REVIEW SET REVIEWIMAGE=#{reviewImage}, REVIEWCONTENTS=#{reviewContents}, REVIEWRATING=#{reviewRating} WHERE REVIEWNUM=#{reviewNum}
+	</update>
+	<!-- 리뷰 삭제 -->
+	<delete id="ReviewDelete" parameterType="int">
+		DELETE REVIEW WHERE REVIEWNUM=#{reviewNum}
+	</delete>
+</mapper>
