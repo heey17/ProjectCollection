@@ -1,7 +1,7 @@
 package com.icia.project.api;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
-
+ 
 public class NaverApi extends DefaultApi20{
 
 	protected NaverApi() {

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function goNaverLogin(){
+	function goNaverLogin(){ 
 		location.href='${naverurl}';
 	}
 </script>

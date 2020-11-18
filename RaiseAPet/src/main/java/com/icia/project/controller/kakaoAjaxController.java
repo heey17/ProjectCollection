@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.icia.project.dto.CouponDTO;
 import com.icia.project.dto.HotelDTO;
 import com.icia.project.service.HotelService;
-
+ 
 @Controller
 @RequestMapping("/kakao/*")
 public class kakaoAjaxController {

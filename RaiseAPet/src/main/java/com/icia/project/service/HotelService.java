@@ -16,7 +16,7 @@ import com.icia.project.dto.HotelDTO;
 import com.icia.project.dto.MemberDTO;
 import com.icia.project.dto.PageDTO;
 
-@Service
+@Service 
 public class HotelService {
 	ModelAndView mav = new ModelAndView();
 	@Autowired

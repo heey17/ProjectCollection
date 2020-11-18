@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.icia.project.dto.EduCommentDTO;
 import com.icia.project.dto.EducationDTO;
 import com.icia.project.service.EducationService;
-
+ 
 @Controller
 public class EducationController {
 

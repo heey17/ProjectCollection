@@ -18,7 +18,7 @@ import com.icia.project.dto.MemberDTO;
 import com.icia.project.service.MedicalService;
 
 @Controller
-public class MedicalController {
+public class MedicalController { 
 
 	private ModelAndView mav = new ModelAndView();
 	List<CouponDTO> lcd = new ArrayList<CouponDTO>();

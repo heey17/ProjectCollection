@@ -9,7 +9,7 @@
 <title>결제내역</title>
 <style>
 	table, tr, td, th{
-		border-collapse: collapse;
+		border-collapse: collapse; 
 		margin: 0 auto;
 		border-width : medium;
 		border : 1px solid #474747;

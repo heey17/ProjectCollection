@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 리스트</title>
+<title>리뷰 리스트</title> 
 <style>
 	.box{
 		width :900px; 

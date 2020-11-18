@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 성공 페이지</title>
-<style>	
+<style>	 
 	.all{
 		text-align : center;
 		margin : 18% 12% 0% 12.5%; /* 밖 */

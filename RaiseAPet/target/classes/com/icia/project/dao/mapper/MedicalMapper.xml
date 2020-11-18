@@ -5,7 +5,7 @@
   <select id="medicalList" resultType="medical" parameterType="medical">
    	SELECT * FROM MEDICAL_DOCTOR
   </select>
-  
+   
   <!-- 의사목록(ajax) -->
   <select id="DoctorInformation" resultType="medical" parameterType="medical">
    	SELECT * FROM  MEDICAL_DOCTOR WHERE DOCTORCODE = #{doctorCode}

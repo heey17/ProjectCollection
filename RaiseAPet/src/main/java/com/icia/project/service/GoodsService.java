@@ -21,7 +21,7 @@ public class GoodsService {
 	
 	@Autowired
 	HttpSession session;
-	
+	 
 	ModelAndView mav = new ModelAndView();
 	
 	@Autowired

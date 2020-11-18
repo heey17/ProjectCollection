@@ -5,7 +5,7 @@
 <configuration>
 	<settings>
 		<setting value="false" name="cacheEnabled"/>
-		<setting value="NULL" name="jdbcTypeForNull"/>
+		<setting value="NULL" name="jdbcTypeForNull"/> 
 	</settings>
  	<typeAliases>
  		<typeAlias type="com.icia.project.dto.MemberDTO" alias="member"/>

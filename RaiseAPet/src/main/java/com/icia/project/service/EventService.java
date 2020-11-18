@@ -24,7 +24,7 @@ import com.icia.project.dto.MemberDTO;
 public class EventService {
 
 	ModelAndView mav = new ModelAndView();
-
+ 
 	@Autowired
 	EventDAO edao = new EventDAO();
 

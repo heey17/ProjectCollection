@@ -52,7 +52,7 @@ import com.icia.project.service.UserMailSendService;
 
 import oracle.jdbc.driver.Message;
 
-@Controller
+@Controller 
 public class MemberController {
 
 	@Autowired

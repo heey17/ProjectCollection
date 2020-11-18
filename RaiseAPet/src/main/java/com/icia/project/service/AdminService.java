@@ -29,7 +29,7 @@ import com.icia.project.dto.ReviewDTO;
 @Service
 public class AdminService {
 	
-	@Autowired
+	@Autowired 
 	private AdminDAO adminDAO = new AdminDAO();
 	private ModelAndView mav = new ModelAndView();
 	File file = new File("");

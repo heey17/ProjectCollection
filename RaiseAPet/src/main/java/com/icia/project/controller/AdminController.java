@@ -29,7 +29,7 @@ import com.icia.project.dto.MemberDTO;
 import com.icia.project.dto.ReportDTO;
 import com.icia.project.service.AdminService;
 
-@Controller
+@Controller 
 public class AdminController {
 	
 	@Autowired

@@ -3,7 +3,7 @@
 <mapper namespace="Hotel">
 	<!-- 호텔작은방 -->
 	<select id="hotelList1"  resultType="hotel">
-		SELECT * FROM HOTEL WHERE HOTELSIZE ='소'	
+		SELECT * FROM HOTEL WHERE HOTELSIZE ='소'	 
 	</select>
  	<!-- 호텔중간방 -->
 	 <select id="hotelList2"  resultType="hotel">

@@ -22,7 +22,7 @@ public class BeautyService {
 	ModelAndView mav = new ModelAndView();
 	List<BeautyDTO> lbd = new ArrayList<BeautyDTO>();
 	List<CouponDTO> lcd = new ArrayList<CouponDTO>();
-	
+	 
 	@Autowired
 	BeautyDAO btdao = new BeautyDAO();
 	

@@ -26,4 +26,124 @@ public class MemberDTO {
 	private int userPoint; // 회원 포인트
 	private String naverId, kakaoId;
 	private String key;
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserPw() {
+		return userPw;
+	}
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public MultipartFile getUserImageFile() {
+		return userImageFile;
+	}
+	public void setUserImageFile(MultipartFile userImageFile) {
+		this.userImageFile = userImageFile;
+	}
+	public String getUserImage() {
+		return userImage;
+	}
+	public void setUserImage(String userImage) {
+		this.userImage = userImage;
+	}
+	public String getUserBirth() {
+		return userBirth;
+	}
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+	public String getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(String userAddress) {
+		this.userAddress = userAddress;
+	}
+	public String getPostcode() {
+		return postcode;
+	}
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getDetailAddress() {
+		return detailAddress;
+	}
+	public void setDetailAddress(String detailAddress) {
+		this.detailAddress = detailAddress;
+	}
+	public String getExtraAddress() {
+		return extraAddress;
+	}
+	public void setExtraAddress(String extraAddress) {
+		this.extraAddress = extraAddress;
+	}
+	public String getUserGender() {
+		return userGender;
+	}
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getUserPhone() {
+		return userPhone;
+	}
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
+	}
+	public String getUserLock() {
+		return userLock;
+	}
+	public void setUserLock(String userLock) {
+		this.userLock = userLock;
+	}
+	public int getUserLockCount() {
+		return userLockCount;
+	}
+	public void setUserLockCount(int userLockCount) {
+		this.userLockCount = userLockCount;
+	}
+	public int getUserPoint() {
+		return userPoint;
+	}
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
+	}
+	public String getNaverId() {
+		return naverId;
+	}
+	public void setNaverId(String naverId) {
+		this.naverId = naverId;
+	}
+	public String getKakaoId() {
+		return kakaoId;
+	}
+	public void setKakaoId(String kakaoId) {
+		this.kakaoId = kakaoId;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 }

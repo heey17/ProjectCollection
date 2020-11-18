@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰내역</title>
-<style>
+<style> 
 	table, tr, td, th{
 		border-collapse: collapse;
 		margin: 0 auto;

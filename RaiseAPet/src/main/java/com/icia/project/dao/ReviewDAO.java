@@ -15,7 +15,7 @@ import com.icia.project.dto.ReviewDTO;
 import com.icia.project.dto.GoodsDTO;
 
 @Repository
-public class ReviewDAO {
+public class ReviewDAO { 
 
 	@Autowired
 	private SqlSessionTemplate sql;

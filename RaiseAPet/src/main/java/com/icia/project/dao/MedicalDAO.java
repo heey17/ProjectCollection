@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.icia.project.dto.MedicalDTO;
 import com.icia.project.dto.MemberDTO;
 @Repository
-public class MedicalDAO {
+public class MedicalDAO { 
 	
 	@Autowired
 	private SqlSessionTemplate sql;

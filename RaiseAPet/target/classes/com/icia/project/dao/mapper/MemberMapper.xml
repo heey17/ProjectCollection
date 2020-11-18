@@ -7,7 +7,7 @@
 	<select id="idOverlap" parameterType="String" resultType="String">
 		SELECT USERID FROM MEMBERS WHERE USERID=#{userId}
 	</select>
-	
+	 
 	<!-- phone 중복 검사 -->
 	<select id="phoneOverlap" parameterType="String" resultType="String">
 		SELECT USERPHONE FROM MEMBERS WHERE USERPHONE=#{userPhone}

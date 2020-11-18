@@ -3,7 +3,7 @@
  
  <mapper namespace="goods">
 
-<!-- 용품 최신순 데이터 요청 -->
+<!-- 용품 최신순 데이터 요청 --> 
 <select id="goodsSearchList" parameterType="hashMap" resultType="goods">
 	SELECT * FROM (SELECT RV.*, ROW_NUMBER() OVER(ORDER BY GOODSNUM DESC)AS RN FROM GOODS RV WHERE  GOODSCATEGORY LIKE '%'||#{goodsCategory}||'%' AND GOODSNAME  LIKE '%'||#{searchData}||'%' AND GOODSANIMALKIND LIKE '%'||#{goodsAnimalKind}||'%') WHERE RN BETWEEN #{startRow} AND #{endRow}
 </select>

@@ -11,7 +11,7 @@ import com.icia.project.dto.BeautyDTO;
 import com.icia.project.dto.GoodsDTO;
 import com.icia.project.dto.MemberDTO;
 import com.icia.project.dto.PageDTO;
-
+ 
 @Repository
 public class GoodsDAO {
 	

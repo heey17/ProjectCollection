@@ -18,7 +18,7 @@ import com.icia.project.dto.MemberDTO;
 
 @Service
 public class MedicalService {
-
+ 
 	ModelAndView mav = new ModelAndView();
 	List<CouponDTO> lcd = new ArrayList<CouponDTO>();
 	List<MedicalDTO> lmd = new ArrayList<MedicalDTO>();

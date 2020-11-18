@@ -11,7 +11,7 @@ import com.icia.project.dto.CouponDTO;
 import com.icia.project.dto.HotelDTO;
 import com.icia.project.dto.MemberDTO;
 @Repository
-public class HotelDAO {
+public class HotelDAO { 
 	@Autowired
 	private SqlSessionTemplate sql;
 	

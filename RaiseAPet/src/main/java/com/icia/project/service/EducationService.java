@@ -24,7 +24,7 @@ public class EducationService {
 	
 	ModelAndView mav = new ModelAndView();
 	
-	@Autowired
+	@Autowired 
 	EducationDAO edudao = new EducationDAO();
 	
 	@Autowired

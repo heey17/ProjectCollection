@@ -16,7 +16,7 @@ import com.icia.project.dto.MemberDTO;
 import com.icia.project.dto.PageDTO;
 import com.icia.project.dto.ReviewDTO;
 
-import javafx.util.Pair;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Repository

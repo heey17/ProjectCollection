@@ -9,7 +9,7 @@
 <style>
 	.all{
 		text-align: center;
-		margin : 0 auto;
+		margin : 0 auto; 
 		width : -33%;
 		border-color: gray;
 	}	

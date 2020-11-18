@@ -8,7 +8,7 @@
 <title>회원가입</title>
 <style>
 	
-	hr{
+	hr{ 
 		height : 5px;
 		border : 0;
 		box-shadow : 0 10px 10px -10px #c886d1 inset;

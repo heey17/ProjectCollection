@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:context="http://www.springframework.org/schema/context"

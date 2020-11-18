@@ -26,7 +26,7 @@ import com.icia.project.dto.EventCommentDTO;
 import com.icia.project.dto.EventDTO;
 import com.icia.project.dto.MemberDTO;
 import com.icia.project.service.EventService;
-
+ 
 @Controller
 
 public class EventController {

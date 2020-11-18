@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디/비밀번호 찾기</title>
-</head>
+</head> 
 <style>
 	hr{
 		height : 5px;

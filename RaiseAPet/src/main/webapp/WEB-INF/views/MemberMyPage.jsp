@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
 <style>
-	table{
+	table{ 
 		border-collapse: collapse;
 	}
 	

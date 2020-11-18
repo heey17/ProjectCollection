@@ -5,7 +5,7 @@
 	<!--EventList-->
 	<select id="eventList" resultType="event" parameterType="event">
 		SELECT * FROM EVENT
-	</select>
+	</select> 
 	
 	<!-- EventHit -->
 	<update id="eventHit" parameterType="event">

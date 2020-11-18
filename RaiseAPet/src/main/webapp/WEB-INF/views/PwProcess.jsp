@@ -8,7 +8,7 @@
 <style>
 	table{
 		border-collapse: collapse;
-		margin: 0 auto; /* 가운데 정렬 */
+		margin: 0 auto; /* 가운데 정렬 */ 
 		text-align : center;
 	}
 	

@@ -31,7 +31,7 @@ import com.icia.project.dto.MedicalDTO;
 import com.icia.project.dto.MemberDTO;
 import com.icia.project.dto.PageDTO;
 import com.icia.project.dto.ReviewDTO;
-
+ 
 @Service
 public class MemberService {
 

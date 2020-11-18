@@ -8,7 +8,7 @@
 <title>리뷰 신고 폼</title>
 <style>
 table {
-	width : 800px;
+	width : 800px; 
 }
 
  #tr{
